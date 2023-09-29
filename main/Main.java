@@ -1,6 +1,7 @@
 package main;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
@@ -12,7 +13,8 @@ public class Main {
 	public static void main(String[] args) {
 		Scanner sc = new Scanner(System.in);
 		List<Employee> employeeList = new ArrayList<>();
-
+        
+	try {
 		System.out.println("Enter the number of employees: ");
 		int employeesAmount = sc.nextInt();
 
@@ -20,17 +22,17 @@ public class Main {
 			System.out.println("Is the employee outsourced? (Y/N)");
 			char Outsourced = sc.next().charAt(0);
 			System.out.println("Type employee #" + (i + 1) + " data ");
-			System.out.println("Name: ");
+			System.out.print("Name: ");
 			String name = sc.next();
-			System.out.println("Worked hours: ");
+			System.out.print("Worked hours: ");
 			double workedHours = sc.nextDouble();
-			System.out.println("Salary per hour: ");
+			System.out.print("Salary per hour: ");
 			double amountPerHour = sc.nextDouble();
 			if (Outsourced == 'N') {
 				Employee employeeObj = new Employee(name, workedHours, amountPerHour);
 				employeeList.add(employeeObj);
 			} else {
-				System.out.println("Additional charge: ");
+				System.out.print("Additional charge: ");
 				double additionalCharge = sc.nextDouble();
 				Employee employeeObj = new Outsourced_employee(name, workedHours, amountPerHour, additionalCharge);
 				employeeList.add(employeeObj);
@@ -45,6 +47,11 @@ public class Main {
 		}
 	
 		sc.close();
+	}
+	catch(InputMismatchException e) {
+		System.out.println("Error: Please, enter a valid value.");
+	}
+		
 	}
 
 }
